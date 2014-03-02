@@ -202,8 +202,7 @@ Now to compute lives saved.  Click _Results &rarr; Neonatal &rarr; Additional de
 
 <img src="Neonatal.png" width="800px" />
 
-Zero or negative numbers mean you haven't prevented any deaths.  Positive numbers tell you how many lives you've saved.  You can view lives saved estimates by cause of death and by intervention type under the other _Results &rarr; Neonatal_ sub-menus.
+Zero or negative numbers mean you haven't prevented any deaths.  Positive numbers tell you how many lives you've saved per year.  You can view lives saved estimates by cause of death and by intervention type under the other _Results &rarr; Neonatal_ sub-menus.
 
 Estimate the number of children's lives saved by doing a similar exercise in the _Results &rarr; Child_ menu, the number of maternal lives saved using the _Results &rarr; Maternal_ menu, and number of stillbirths prevented in the _Results &rarr; Stillbirth_ menu.
-
 
