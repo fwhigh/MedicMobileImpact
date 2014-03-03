@@ -5,7 +5,11 @@ MedicMobileImpact
 
  Step 1.  Download this repository.  On the GitHub site, you can download a zipped version of this repo, or if you are a savvy git user, you can clone it to your desktop.
 
- Step 2.  Download and install RStudio.
+ Step 2.  Download and install R.
+ 
+ http://cran.r-project.org/
+ 
+ And RStudio.
 
 https://www.rstudio.com/
 
