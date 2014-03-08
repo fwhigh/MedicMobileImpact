@@ -52,7 +52,7 @@ iframe {
   position: absolute;
   top: 0px;
   right: 0px;
-  width: 604px;
+  width: 750px;
   height: 100%;
   border: 0;
   margin: 0;
@@ -68,11 +68,13 @@ iframe {
 
 # Synopsis
 
-The purpose of this worksheet is to estimate the effectiveness of ANC treatment on a population.
+The purpose of this worksheet is to estimate the effectiveness of ANC
+treatment on a population.
 
 # Instructions
 
-Every time you see a sentence in boldface, go to the R markdown source document and enter the requested value.
+Every time you see a sentence in boldface, go to the R markdown source
+document and enter the requested value.
 
 # Software Versions Tested
 
@@ -100,7 +102,8 @@ country.name <- "Nigeria"
 country.population <- 168.8e6
 ```
 
-**What is the year of this estimate?  It's okay if the year is approximate.**
+**What is the year of this estimate?  It's okay if the year is
+approximate.**
 
 ```{r}
 country.population.year <- 2012
@@ -118,13 +121,16 @@ catchment.name <- "Lagos"
 catchment.population <- 5.195e6
 ```
 
-**What is the year of this estimate?  It's okay if it is approximate, but it should at least be roughly around `r country.population.year`.**
+**What is the year of this estimate?  It's okay if it is approximate,
+but it should at least be roughly around `r
+country.population.year`.**
 
 ```{r}
 catchment.population.year <- 2012
 ```
 
-**What is the first year you will be modeling an increase in ANC coverage?  Enter this year or later.**
+**What is the first year you will be modeling an increase in ANC
+coverage?  Enter this year or later.**
 
 ```{r}
 first.anc.year <- 2014
@@ -136,30 +142,50 @@ first.anc.year <- 2014
 n.women.covered <- 100000
 ```
 
-You are embarking on an ANC projection for `r catchment.name`, `r country.name`.  The population of `r catchment.name` is `r sprintf("%i",catchment.population)`, which is `r sprintf("%.2f",catchment.population/country.population*100)`% of `r country.name`'s population.  Your baseline year for demographic projections is `r country.population.year`, and the year you want to model an increase in coverage is `r first.anc.year`.
+You are embarking on an ANC projection for `r catchment.name`, `r
+country.name`.  The population of `r catchment.name` is `r
+sprintf("%i",catchment.population)`, which is `r
+sprintf("%.2f",catchment.population/country.population*100)`% of `r
+country.name`'s population.  Your baseline year for demographic
+projections is `r country.population.year`, and the year you want to
+model an increase in coverage is `r first.anc.year`.
 
 # Initialize Spectrum
 
-Launch Spectrum.  (If this is your first time, proceed to the next step now.  If this is not your first time, make sure all your previous projection are closed: in the _Home_ tab, select _Close &rarr; All Projections_.)
+Launch Spectrum.  (If this is your first time, proceed to the next
+step now.  If this is not your first time, make sure all your previous
+projection are closed: in the _Home_ tab, select _Close &rarr; All
+Projections_.)
 
 Click _New_ or _New projection_.
 
 <img src="Spectrum_first_screen.png" width="800px" />
 
-In the _New_ dialog, under “Set a name...”, set the name for this projection.  Make it descriptive of the country, county, and possibly intervention.
+In the _New_ dialog, under “Set a name...”, set the name for this
+projection.  Make it descriptive of the country, county, and possibly
+intervention.
 
-Under “Set year boundaries...”, enter a first year as the year of the country and catchment population estimates from the preparation work you did above.  If you don’t know the year of the population estimates but they are within the last 5 year, say, just enter 2012.  The principle here is to have the start year be at least a full year before the start of the intervention.  
+Under “Set year boundaries...”, enter a first year as the year of the
+country and catchment population estimates from the preparation work
+you did above.  If you don’t know the year of the population estimates
+but they are within the last 5 year, say, just enter 2012.  The
+principle here is to have the start year be at least a full year
+before the start of the intervention.
 
 Set the final year to 10 years after the start year.
 
-In the “Activate modules for use in your projection” area, check the following three boxes.
+In the “Activate modules for use in your projection” area, check the
+following three boxes.
 
 1. _Demographic Projection (DemProj)_
 1. _AIDS (AIM)_
 1. _Lives Saved Tool (LiST)_
 1. _Family Planning (FamPlan)_
 
-In the “Select a country from which to retrieve demographic and other default data”, click _Country data_ and select the country corresponding to 1b.  Make sure DemProj, AIM, and LiST are checked (they should already be).
+In the “Select a country from which to retrieve demographic and other
+default data”, click _Country data_ and select the country
+corresponding to 1b.  Make sure DemProj, AIM, and LiST are checked
+(they should already be).
 
 Check the box for _Subnational projection_, write `r catchment.name`.
 
@@ -175,13 +201,19 @@ Click on the _DemProj_ module.
 
 Click on _Demographic data_.
 
-Under the _First year population_ tab, you’ll find the country’s demographic data, disaggregated into gender and 5-year age bands.  Select the entire table by clicking the upper left-most box, then Shift-clicking the bottom right-most box.
+Under the _First year population_ tab, you’ll find the country’s
+demographic data, disaggregated into gender and 5-year age bands.
+Select the entire table by clicking the upper left-most box, then
+Shift-clicking the bottom right-most box.
 
 Click the _Multiply_ button.  Enter the following number in Spectrum.
 
 *`r sprintf("%.4f",catchment.population/country.population)`*
 
-Click _Ok_.  You will see all the numbers in the population table reduced by this fraction.  Double check that the total population is now roughly equal to your catchment area as follows.  **What is the total male population listed in the table?**
+Click _Ok_.  You will see all the numbers in the population table
+reduced by this fraction.  Double check that the total population is
+now roughly equal to your catchment area as follows.  **What is the
+total male population listed in the table?**
 
 ```{r}
 spectrum.catchment.male.population <- 2.547e6
@@ -194,57 +226,90 @@ spectrum.catchment.female.population <- 2.495e6
 ```
 
 ```{r echo=FALSE}
-spectrum.catchment.population <- spectrum.catchment.male.population + spectrum.catchment.female.population
+spectrum.catchment.population <- 
+  spectrum.catchment.male.population 
+  + spectrum.catchment.female.population
 ```
 
-The total population you multiplied down to is `r sprintf("%i",spectrum.catchment.population)`, which is `r sprintf("%.1f",(1-(spectrum.catchment.population)/catchment.population)*100)`% different from the catchment population you estimated.  If the difference is 10% or smaller, you should be fine.
+The total population you multiplied down to is `r
+sprintf("%i",spectrum.catchment.population)`, which is `r
+sprintf("%.1f",(1-(spectrum.catchment.population)/catchment.population)*100)`%
+different from the catchment population you estimated.  If the
+difference is 10% or smaller, you should be fine.
 
 Click _Ok_ to save your edits and exit the _Demographic data_ dialog.
 
-Click on _Results &rarr; Total Population_.  The defaults in the dialog you are presented with should be fine, but check _Table plus chart_.  Click _Ok_.  You’ll see a projection of the total population for your catchment from the year after your first year to your final year.  
+Click on _Results &rarr; Total Population_.  The defaults in the
+dialog you are presented with should be fine, but check _Table plus
+chart_.  Click _Ok_.  You’ll see a projection of the total population
+for your catchment from the year after your first year to your final
+year.
 
 <img src="Demographic_Projection.png" width="800px" />
 
-**What, in whole numbers (not in millions), is the total projected population size in `r first.anc.year`?**
+**What, in whole numbers (not in millions), is the total projected
+population size in `r first.anc.year`?**
 
 ```{r}
 spectrum.catchment.population.first.anc.year <- 5.09e6
 ```
 
-The projection population for your first year of increased ANC coverage (`r first.anc.year`) is `r sprintf("%.2f",(spectrum.catchment.population.first.anc.year/catchment.population-1)*100)`% bigger than the population in `r catchment.population.year`, which was `r sprintf("%i",catchment.population)`.
+The projection population for your first year of increased ANC
+coverage (`r first.anc.year`) is `r
+sprintf("%.2f",(spectrum.catchment.population.first.anc.year/catchment.population-1)*100)`%
+bigger than the population in `r catchment.population.year`, which was
+`r sprintf("%i",catchment.population)`.
 
-Click on _Results &rarr; Vital Events &rarr; Crude Birth Rate_.  The defaults in the dialog you are presented should be fine, but check _Table plus_ chart.  Click _Ok_.  You’ll see a projection of the crude birth rate for your catchment from the year after your first year to your final year.  
+Click on _Results &rarr; Vital Events &rarr; Crude Birth Rate_.  The
+defaults in the dialog you are presented should be fine, but check
+_Table plus_ chart.  Click _Ok_.  You’ll see a projection of the crude
+birth rate for your catchment from the year after your first year to
+your final year.
 
 <img src="Crude_Birth_Rate_Projection.png" width="800px" />
 
-This is the number of births per 1000 people.  **What is the CBR for `r first.anc.year`?**
+This is the number of births per 1000 people.  **What is the CBR for
+`r first.anc.year`?**
 
 ```{r}
 spectrum.cbr.first.anc.year <- 38.15
 ```
 
 ```{r echo=FALSE}
-n.pregnant.women.first.anc.year <- spectrum.cbr.first.anc.year/1000*catchment.population
+n.pregnant.women.first.anc.year <- 
+   spectrum.cbr.first.anc.year/1000*catchment.population
 ```
 
-Given this value, the estimated number of pregnant women in `r catchment.name` in `r first.anc.year` is `r sprintf("%.0f",n.pregnant.women.first.anc.year)`.
+Given this value, the estimated number of pregnant women in `r
+catchment.name` in `r first.anc.year` is `r
+sprintf("%.0f",n.pregnant.women.first.anc.year)`.
 
 # Scale up ANC in LiST
 
 Make sure you’re in the _Modules_ tab.  Select the _LiST_ module.
 
-Select _Coverage_.  In the dialog, select the _Pregnancy_ tab.  You’ll see nationally averaged coverage rates already populated in the table.  Look at the "Antenatal care" row of the table.  **What is the coverage rate shown for `r first.anc.year`?**
+Select _Coverage_.  In the dialog, select the _Pregnancy_ tab.  You’ll
+see nationally averaged coverage rates already populated in the table.
+Look at the "Antenatal care" row of the table.  **What is the coverage
+rate shown for `r first.anc.year`?**
 
 ```{r}
 baseline.anc.coverage.rate <- 44.8
 ```
 
-By default, LiST is assuming that `r sprintf("%.f",baseline.anc.coverage.rate/100*n.pregnant.women.first.anc.year)` out of `r sprintf("%.f",n.pregnant.women.first.anc.year)`  pregant women are being treated with antenatal care.  This coverage rate is equal to the national coverage rate by default, and we've just scaled it down to the catchment size.
+By default, LiST is assuming that `r
+sprintf("%.f",baseline.anc.coverage.rate/100*n.pregnant.women.first.anc.year)`
+out of `r sprintf("%.f",n.pregnant.women.first.anc.year)` pregant
+women are being treated with antenatal care.  This coverage rate is
+equal to the national coverage rate by default, and we've just scaled
+it down to the catchment size.
 
 In the "Antenatal care" row in the `r first.anc.year` column, enter 
 
 ```{r echo=FALSE}
-new.anc.coverage.rate <- min(1,(baseline.anc.coverage.rate/100*(n.pregnant.women.first.anc.year-min(0,n.women.covered)) + n.women.covered)/n.pregnant.women.first.anc.year)
+new.anc.coverage.rate <- 
+   min(1,(baseline.anc.coverage.rate/100*(n.pregnant.women.first.anc.year-min(0,n.women.covered)) 
+     + n.women.covered)/n.pregnant.women.first.anc.year)
 ```
 
 *`r sprintf("%.1f",new.anc.coverage.rate*100)`*
@@ -255,21 +320,34 @@ $$
 \frac{\text{default coverage rate} \times (N\text{ pregnant women} - N\text{ women covered by this program}) + N\text{ women covered by this program}}{N\text{ pregnant women}},
 $$
 
-imposing the rule that$N\text{ women covered by this program} \leq N\text{ pregnant women}.$
+imposing the rule that$N\text{ women covered by this program} \leq
+N\text{ pregnant women}.$
 
-Now click on this cell to select it, then Shift-click on the farthest "Antenatal care" cell on the right.  Click _Duplicate_ on the bottom to replicate the number you just entered for all subsequent years.  You should see something like this.
+Now click on this cell to select it, then Shift-click on the farthest
+"Antenatal care" cell on the right.  Click _Duplicate_ on the bottom
+to replicate the number you just entered for all subsequent years.
+You should see something like this.
 
 <img src="ANC_Coverage_Table.png" width="800px" />
 
 Click _Ok_ to save changes and exit the dialog.
 
-Now to compute lives saved.  Click _Results &rarr; Neonatal &rarr; Additional deaths prevented in children under one month of age_.  In the dialog, select _Table_ and hit _Ok_.  You may see a table like this.
+Now to compute lives saved.  Click _Results &rarr; Neonatal &rarr;
+Additional deaths prevented in children under one month of age_.  In
+the dialog, select _Table_ and hit _Ok_.  You may see a table like
+this.
 
 <img src="Neonatal.png" width="800px" />
 
-Zero or negative numbers mean you haven't prevented any deaths.  Positive numbers tell you how many lives you've saved per year.  You can view lives saved estimates by cause of death and by intervention type under the other _Results &rarr; Neonatal_ sub-menus.
+Zero or negative numbers mean you haven't prevented any deaths.
+Positive numbers tell you how many lives you've saved per year.  You
+can view lives saved estimates by cause of death and by intervention
+type under the other _Results &rarr; Neonatal_ sub-menus.
 
-Estimate the number of children's lives saved by doing a similar exercise in the _Results &rarr; Child_ menu, the number of maternal lives saved using the _Results &rarr; Maternal_ menu, and number of stillbirths prevented in the _Results &rarr; Stillbirth_ menu.
+Estimate the number of children's lives saved by doing a similar
+exercise in the _Results &rarr; Child_ menu, the number of maternal
+lives saved using the _Results &rarr; Maternal_ menu, and number of
+stillbirths prevented in the _Results &rarr; Stillbirth_ menu.
 </div>
 
 <iframe src="about:blank"></iframe>
