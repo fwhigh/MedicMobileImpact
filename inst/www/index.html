@@ -1,4 +1,69 @@
-Medic Mobile ANC effectiveness worksheet
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Medic Mobile ANC impact worksheet</title>
+    
+<script src="underscore-min.js"></script>    
+<script src="jquery-1.10.2.min.js"></script>
+<script src="opencpu-0.4.js"></script>
+<script src="src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+$(function(){
+  var editor = ace.edit("editor");
+  editor.setTheme("ace/theme/monokai");
+  editor.getSession().setMode("ace/mode/r");
+  editor.setFontSize("14px");
+
+  //This app requires OpenCPU 1.0.1 or higher!
+  
+  function domarkdown(e){
+    var req = ocpu.call("rmdtext", {
+      text : editor.getSession().getValue()
+    }, function(session){
+      $("iframe").attr('src', session.getFileURL("output.html"));     
+    }).fail(function(text){
+      alert("Error: " + req.responseText);
+    });
+  }
+
+  //auto run after 3 seconds of no activity
+  var update = _.debounce(domarkdown, 3000);
+  
+  //register event
+  editor.on("change", update);
+  
+  //init on start
+  domarkdown();  
+});
+</script>
+
+<style type="text/css" media="screen">
+ 
+#editor { 
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+iframe { 
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 604px;
+  height: 100%;
+  border: 0;
+  margin: 0;
+  z-index: 999999;
+}
+
+</style>
+</head>
+<body>
+
+<div id="editor">Medic Mobile ANC effectiveness worksheet
 ========================================
 
 # Synopsis
@@ -205,4 +270,9 @@ Now to compute lives saved.  Click _Results &rarr; Neonatal &rarr; Additional de
 Zero or negative numbers mean you haven't prevented any deaths.  Positive numbers tell you how many lives you've saved per year.  You can view lives saved estimates by cause of death and by intervention type under the other _Results &rarr; Neonatal_ sub-menus.
 
 Estimate the number of children's lives saved by doing a similar exercise in the _Results &rarr; Child_ menu, the number of maternal lives saved using the _Results &rarr; Maternal_ menu, and number of stillbirths prevented in the _Results &rarr; Stillbirth_ menu.
+</div>
 
+<iframe src="about:blank"></iframe>
+
+</body>
+</html>

@@ -5,11 +5,15 @@ MedicMobileImpact
 
  Step 1.  Download this repository.  On the GitHub site, you can download a zipped version of this repo, or if you are a savvy git user, you can clone it to your desktop.
 
- Step 2.  Download and install RStudio.
+ Step 2.  Download and install R.
+ 
+ http://cran.r-project.org/
+ 
+ And RStudio.
 
 https://www.rstudio.com/
 
- Step 3.  Open RStudio, and install the knitr package.  Do this by clicking _Packages_ tab, then click the _Install Packages_ button.  Search for "knitr", make sure _Install dependencies_ is checked, and click _Install_.
+ Step 3.  Open RStudio, and install the knitr package.  Do this by clicking _Packages_ tab, then click the _Install Packages_ button.  Search for "knitr", make sure _Install dependencies_ is checked, and click _Install_.  This procedure has been tested using knitr 1.5.  To make sure you have the latest knitr update, in RStudio in the _Packages_ tab click _Check for Updates_ and follow the instructions.
 
  Step 4.  Enable knitr in RStudio.  Do this by clicking _Preferences_, then clicking the _Sweave_ tab.  Next to "Weave Rnw files using", select knitr from the drop-down menu.  Click _Apply_ and _Ok_.
 
