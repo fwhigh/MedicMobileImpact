@@ -26,13 +26,13 @@ CBR:  Crude birth rate
 **What is the name of the country?**
 
 ```{r}
-country.name <- "Kenya"
+country.name <- "Nigeria"
 ```
 
 **Provide a recent estimate of the population of `r country.name`.**
 
 ```{r}
-country.population <- 43200000
+country.population <- 168.8e6
 ```
 
 **What is the year of this estimate?  It's okay if the year is approximate.**
@@ -44,13 +44,13 @@ country.population.year <- 2012
 **What is the name of the catchment?**
 
 ```{r}
-catchment.name <- "Kilifi county"
+catchment.name <- "Lagos"
 ```
 
 **What is the population of `r catchment.name`?**
 
 ```{r}
-catchment.population <- 1109735
+catchment.population <- 5.195e6
 ```
 
 **What is the year of this estimate?  It's okay if it is approximate, but it should at least be roughly around `r country.population.year`.**
@@ -68,7 +68,7 @@ first.anc.year <- 2014
 **How many women will your program serve in `r first.anc.year`?**
 
 ```{r}
-n.women.covered <- 91600
+n.women.covered <- 100000
 ```
 
 You are embarking on an ANC projection for `r catchment.name`, `r country.name`.  The population of `r catchment.name` is `r sprintf("%i",catchment.population)`, which is `r sprintf("%.2f",catchment.population/country.population*100)`% of `r country.name`'s population.  Your baseline year for demographic projections is `r country.population.year`, and the year you want to model an increase in coverage is `r first.anc.year`.
@@ -119,13 +119,13 @@ Click the _Multiply_ button.  Enter the following number in Spectrum.
 Click _Ok_.  You will see all the numbers in the population table reduced by this fraction.  Double check that the total population is now roughly equal to your catchment area as follows.  **What is the total male population listed in the table?**
 
 ```{r}
-spectrum.catchment.male.population <- 544933
+spectrum.catchment.male.population <- 2.547e6
 ```
 
 **And what is the total female population?**
 
 ```{r}
-spectrum.catchment.female.population <- 550576
+spectrum.catchment.female.population <- 2.495e6
 ```
 
 ```{r echo=FALSE}
@@ -143,7 +143,7 @@ Click on _Results &rarr; Total Population_.  The defaults in the dialog you are 
 **What, in whole numbers (not in millions), is the total projected population size in `r first.anc.year`?**
 
 ```{r}
-spectrum.catchment.population.first.anc.year <- 1.17e6
+spectrum.catchment.population.first.anc.year <- 5.09e6
 ```
 
 The projection population for your first year of increased ANC coverage (`r first.anc.year`) is `r sprintf("%.2f",(spectrum.catchment.population.first.anc.year/catchment.population-1)*100)`% bigger than the population in `r catchment.population.year`, which was `r sprintf("%i",catchment.population)`.
@@ -155,7 +155,7 @@ Click on _Results &rarr; Vital Events &rarr; Crude Birth Rate_.  The defaults in
 This is the number of births per 1000 people.  **What is the CBR for `r first.anc.year`?**
 
 ```{r}
-spectrum.cbr.first.anc.year <- 34.41
+spectrum.cbr.first.anc.year <- 38.15
 ```
 
 ```{r echo=FALSE}
@@ -171,7 +171,7 @@ Make sure you’re in the _Modules_ tab.  Select the _LiST_ module.
 Select _Coverage_.  In the dialog, select the _Pregnancy_ tab.  You’ll see nationally averaged coverage rates already populated in the table.  Look at the "Antenatal care" row of the table.  **What is the coverage rate shown for `r first.anc.year`?**
 
 ```{r}
-baseline.anc.coverage.rate <- 45.7
+baseline.anc.coverage.rate <- 44.8
 ```
 
 By default, LiST is assuming that `r sprintf("%.f",baseline.anc.coverage.rate/100*n.pregnant.women.first.anc.year)` out of `r sprintf("%.f",n.pregnant.women.first.anc.year)`  pregant women are being treated with antenatal care.  This coverage rate is equal to the national coverage rate by default, and we've just scaled it down to the catchment size.
