@@ -1,7 +1,16 @@
 MedicMobileImpact
 =================
 
-## Instructions
+## Instructions on running the worksheet in your browser
+
+In R:
+
+    install.packages("opencpu",dependencies=TRUE)
+    library(devtools)
+    install_github("MedicMobileImpact","fwhigh")
+    opencpu$browse("/library/MedicMobileImpact/www")
+    
+## Instructions on running the worksheet in RStudio
 
  Step 1.  Download this repository.  On the GitHub site, you can download a zipped version of this repo, or if you are a savvy git user, you can clone it to your desktop.
 
