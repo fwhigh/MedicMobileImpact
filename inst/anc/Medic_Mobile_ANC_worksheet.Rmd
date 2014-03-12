@@ -79,7 +79,7 @@ Launch Spectrum.  (If this is your first time, proceed to the next step now.  If
 
 Click _New_ or _New projection_.
 
-<img src="images/Spectrum_first_screen.png" width="800px" />
+<img src="Spectrum_first_screen.png" width="800px" />
 
 In the _New_ dialog, under “Set a name...”, set the name for this projection.  Make it descriptive of the country, county, and possibly intervention.
 
@@ -100,7 +100,7 @@ Check the box for _Subnational projection_, write `r catchment.name`.
 
 Hit _Ok_.  If you then see the following dialog, just hit _Cancel_.
 
-<img src="images/New_Spectrum_version_creation_dialog.png" width="800px" />
+<img src="New_Spectrum_version_creation_dialog.png" width="800px" />
 
 # Do a demographics projection
 
@@ -138,7 +138,7 @@ Click _Ok_ to save your edits and exit the _Demographic data_ dialog.
 
 Click on _Results &rarr; Total Population_.  The defaults in the dialog you are presented with should be fine, but check _Table plus chart_.  Click _Ok_.  You’ll see a projection of the total population for your catchment from the year after your first year to your final year.  
 
-<img src="images/Demographic_Projection.png" width="800px" />
+<img src="Demographic_Projection.png" width="800px" />
 
 **What, in whole numbers (not in millions), is the total projected population size in `r first.anc.year`?**
 
@@ -150,7 +150,7 @@ The projection population for your first year of increased ANC coverage (`r firs
 
 Click on _Results &rarr; Vital Events &rarr; Crude Birth Rate_.  The defaults in the dialog you are presented should be fine, but check _Table plus_ chart.  Click _Ok_.  You’ll see a projection of the crude birth rate for your catchment from the year after your first year to your final year.  
 
-<img src="images/Crude_Birth_Rate_Projection.png" width="800px" />
+<img src="Crude_Birth_Rate_Projection.png" width="800px" />
 
 This is the number of births per 1000 people.  **What is the CBR for `r first.anc.year`?**
 
@@ -194,13 +194,13 @@ imposing the rule that$N\text{ women covered by this program} \leq N\text{ pregn
 
 Now click on this cell to select it, then Shift-click on the farthest "Antenatal care" cell on the right.  Click _Duplicate_ on the bottom to replicate the number you just entered for all subsequent years.  You should see something like this.
 
-<img src="images/ANC_Coverage_Table.png" width="800px" />
+<img src="ANC_Coverage_Table.png" width="800px" />
 
 Click _Ok_ to save changes and exit the dialog.
 
 Now to compute lives saved.  Click _Results &rarr; Neonatal &rarr; Additional deaths prevented in children under one month of age_.  In the dialog, select _Table_ and hit _Ok_.  You may see a table like this.
 
-<img src="images/Neonatal.png" width="800px" />
+<img src="Neonatal.png" width="800px" />
 
 Zero or negative numbers mean you haven't prevented any deaths.  Positive numbers tell you how many lives you've saved per year.  You can view lives saved estimates by cause of death and by intervention type under the other _Results &rarr; Neonatal_ sub-menus.
 
