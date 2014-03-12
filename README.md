@@ -8,7 +8,8 @@ In R:
     install.packages("opencpu",dependencies=TRUE)
     library(devtools)
     install_github("MedicMobileImpact","fwhigh")
-    opencpu$browse("/library/MedicMobileImpact/www")
+    opencpu$browse("/library/MedicMobileImpact/anc")
+    opencpu$browse("/library/MedicMobileImpact/vaccine")
     
 ## Instructions on running the worksheet in RStudio
 
