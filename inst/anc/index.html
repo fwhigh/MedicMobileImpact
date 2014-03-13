@@ -7,37 +7,7 @@
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/opencpu-0.4.js"></script>
 <script src="../js/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-
-<script>
-$(function(){
-  var editor = ace.edit("editor");
-  editor.setTheme("ace/theme/monokai");
-  editor.getSession().setMode("ace/mode/r");
-  editor.setFontSize("14px");
-
-  //This app requires OpenCPU 1.0.1 or higher!
-  
-  function domarkdown(e){
-    var req = ocpu.call("rmdtext", {
-      text : editor.getSession().getValue()
-    }, function(session){
-      $("iframe").attr('src', session.getFileURL("output.html"));     
-    }).fail(function(text){
-      alert("Error: " + req.responseText);
-    });
-  }
-
-  //auto run after 3 seconds of no activity
-  var update = _.debounce(domarkdown, 3000);
-  
-  //register event
-  editor.on("change", update);
-  
-  //init on start
-  domarkdown();  
-});
-
-</script>
+<script src="../js/markdownapp.js" type="text/javascript" charset="utf-8"></script>
 
 <style type="text/css" media="screen">
  
@@ -123,8 +93,8 @@ catchment.population <- 5.195e6
 ```
 
 **What is the year of this estimate?  It is okay if it is approximate,
-but it should at least be roughly around `r
-country.population.year`.**
+but it should at least be roughly around 
+`r country.population.year`.**
 
 ```{r}
 catchment.population.year <- 2012
@@ -143,11 +113,11 @@ first.anc.year <- 2014
 n.women.covered <- 100000
 ```
 
-You are embarking on an ANC projection for `r catchment.name`, `r
-country.name`.  The population of `r catchment.name` is `r
-sprintf("%i",catchment.population)`, which is `r
-sprintf("%.2f",catchment.population/country.population*100)`% of the
-population of r country.name`.  Your baseline year for demographic
+You are embarking on an ANC projection for `r catchment.name`, 
+`r country.name`.  The population of `r catchment.name` is 
+`r sprintf("%i",catchment.population)`, which is 
+`r sprintf("%.2f",catchment.population/country.population*100)`% 
+of the population of r country.name`.  Your baseline year for demographic
 projections is `r country.population.year`, and the year you want to
 model an increase in coverage is `r first.anc.year`.
 
@@ -160,7 +130,7 @@ Projections_.)
 
 Click _New_ or _New projection_.
 
-![title](/ocpu/library/MedicMobileImpact/anc/images/Spectrum_first_screen.png)
+![title](/ocpu/library/MedicMobileImpact/images/Spectrum_first_screen.png)
 
 In the _New_ dialog, under “Set a name...”, set the name for this
 projection.  Make it descriptive of the country, county, and possibly
@@ -192,7 +162,7 @@ Check the box for _Subnational projection_, write `r catchment.name`.
 
 Hit _Ok_.  If you then see the following dialog, just hit _Cancel_.
 
-![title](/ocpu/library/MedicMobileImpact/anc/images/New_Spectrum_version_creation_dialog.png)
+![title](/ocpu/library/MedicMobileImpact/images/New_Spectrum_version_creation_dialog.png)
 
 # Do a demographics projection
 
@@ -231,9 +201,9 @@ spectrum.catchment.population <-
   spectrum.catchment.male.population + spectrum.catchment.female.population
 ```
 
-The total population you multiplied down to is `r
-sprintf("%i",spectrum.catchment.population)`, which is `r
-sprintf("%.1f",(1-(spectrum.catchment.population)/catchment.population)*100)`%
+The total population you multiplied down to is 
+`r sprintf("%i",spectrum.catchment.population)`, which is 
+`r sprintf("%.1f",(1-(spectrum.catchment.population)/catchment.population)*100)`%
 different from the catchment population you estimated.  If the
 difference is 10% or smaller, you should be fine.
 
@@ -245,7 +215,7 @@ chart_.  Click _Ok_.  You’ll see a projection of the total population
 for your catchment from the year after your first year to your final
 year.
 
-![title](/ocpu/library/MedicMobileImpact/anc/images/Demographic_Projection.png)
+![title](/ocpu/library/MedicMobileImpact/images/Demographic_Projection.png)
 
 **What, in whole numbers (not in millions), is the total projected
 population size in `r first.anc.year`?**
@@ -255,8 +225,8 @@ spectrum.catchment.population.first.anc.year <- 5.09e6
 ```
 
 The projection population for your first year of increased ANC
-coverage (`r first.anc.year`) is `r
-sprintf("%.2f",(spectrum.catchment.population.first.anc.year/catchment.population-1)*100)`%
+coverage (`r first.anc.year`) is 
+`r sprintf("%.2f",(spectrum.catchment.population.first.anc.year/catchment.population-1)*100)`%
 bigger than the population in `r catchment.population.year`, which was
 `r sprintf("%i",catchment.population)`.
 
@@ -266,7 +236,7 @@ _Table plus_ chart.  Click _Ok_.  You’ll see a projection of the crude
 birth rate for your catchment from the year after your first year to
 your final year.
 
-![title](/ocpu/library/MedicMobileImpact/anc/images/Crude_Birth_Rate_Projection.png)
+![title](/ocpu/library/MedicMobileImpact/images/Crude_Birth_Rate_Projection.png)
 
 This is the number of births per 1000 people.  **What is the CBR for
 `r first.anc.year`?**
@@ -280,9 +250,9 @@ n.pregnant.women.first.anc.year <-
   spectrum.cbr.first.anc.year/1000*catchment.population
 ```
 
-Given this value, the estimated number of pregnant women in `r
-catchment.name` in `r first.anc.year` is `r
-sprintf("%.0f",n.pregnant.women.first.anc.year)`.
+Given this value, the estimated number of pregnant women in 
+`r catchment.name` in `r first.anc.year` is 
+`r sprintf("%.0f",n.pregnant.women.first.anc.year)`.
 
 # Scale up ANC in LiST
 
@@ -297,8 +267,8 @@ rate shown for `r first.anc.year`?**
 baseline.anc.coverage.rate <- 44.8
 ```
 
-By default, LiST is assuming that `r
-sprintf("%.f",baseline.anc.coverage.rate/100*n.pregnant.women.first.anc.year)`
+By default, LiST is assuming that 
+`r sprintf("%.f",baseline.anc.coverage.rate/100*n.pregnant.women.first.anc.year)`
 out of `r sprintf("%.f",n.pregnant.women.first.anc.year)` pregant
 women are being treated with antenatal care.  This coverage rate is
 equal to the national coverage rate by default, and we have just
@@ -327,7 +297,7 @@ Now click on this cell to select it, then Shift-click on the farthest
 to replicate the number you just entered for all subsequent years.
 You should see something like this.
 
-![title](/ocpu/library/MedicMobileImpact/anc/images/ANC_Coverage_Table.png)
+![title](/ocpu/library/MedicMobileImpact/images/ANC_Coverage_Table.png)
 
 Click _Ok_ to save changes and exit the dialog.
 
@@ -336,7 +306,7 @@ Additional deaths prevented in children under one month of age_.  In
 the dialog, select _Table_ and hit _Ok_.  You may see a table like
 this.
 
-![title](/ocpu/library/MedicMobileImpact/anc/images/Neonatal.png)
+![title](/ocpu/library/MedicMobileImpact/images/Neonatal.png)
 
 Zero or negative numbers mean you have not prevented any deaths.
 Positive numbers tell you how many lives you have saved per year.  You

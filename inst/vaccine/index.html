@@ -1,42 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Medic Mobile ANC impact worksheet</title>
+<title>Medic Mobile vaccine impact worksheet</title>
     
 <script src="../js/underscore-min.js"></script>    
 <script src="../js/jquery-1.10.2.min.js"></script>
 <script src="../js/opencpu-0.4.js"></script>
 <script src="../js/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-
-<script>
-$(function(){
-  var editor = ace.edit("editor");
-  editor.setTheme("ace/theme/monokai");
-  editor.getSession().setMode("ace/mode/r");
-  editor.setFontSize("14px");
-
-  //This app requires OpenCPU 1.0.1 or higher!
-  
-  function domarkdown(e){
-    var req = ocpu.call("rmdtext", {
-      text : editor.getSession().getValue()
-    }, function(session){
-      $("iframe").attr('src', session.getFileURL("output.html"));     
-    }).fail(function(text){
-      alert("Error: " + req.responseText);
-    });
-  }
-
-  //auto run after 3 seconds of no activity
-  var update = _.debounce(domarkdown, 3000);
-  
-  //register event
-  editor.on("change", update);
-  
-  //init on start
-  domarkdown();  
-});
-</script>
+<script src="../js/markdownapp.js" type="text/javascript" charset="utf-8"></script>
 
 <style type="text/css" media="screen">
  
@@ -117,7 +88,7 @@ Projections_.)
 
 Click _New_ or _New projection_.
 
-![title](/ocpu/library/MedicMobileImpact/vaccine/images/Spectrum_first_screen.png)
+![title](/ocpu/library/MedicMobileImpact/images/Spectrum_first_screen.png)
 
 In the _New_ dialog, under “Set a name...”, set the name for this
 projection.  Make it descriptive of the country, locale and
@@ -151,10 +122,10 @@ Click on the _DemProj_ module.
 Select _Results &rarr; Age Groups &rarr; All Age Groups_. You should
 see a popup titled _Configure - All Age Groups_.
 
-![title](/ocpu/library/MedicMobileImpact/vaccine/images/AllAgeGroups.png)
+![title](/ocpu/library/MedicMobileImpact/images/AllAgeGroups.png)
 
-The defaults should be fine here. Make sure that _First year_ is `r
-first.anc.year` and that _Display Interval_ is Single year.
+The defaults should be fine here. Make sure that _First year_ is 
+`r first.anc.year` and that _Display Interval_ is Single year.
 
 Click _OK_.
 
@@ -164,7 +135,7 @@ version where even if Single year is selected ages are given in five
 year increments. When this bug is fixed, the 0-1 age group should be
 used.
 
-![title](/ocpu/library/MedicMobileImpact/vaccine/images/PopByAgeAndSex.png)
+![title](/ocpu/library/MedicMobileImpact/images/PopByAgeAndSex.png)
 
 **What is the number in the upper left box (`r first.anc.year` Total 0-4`)?**
 
@@ -190,9 +161,11 @@ Children 0-1:
 
 Make sure you’re in the _Modules_ tab.  Select the _LiST_ module.
 
-Select _Coverage_.  In the dialog, select the _Vaccines_ tab.  You’ll see nationally averaged coverage rates already populated in the table.  Look at the year in the table corresponding to `r first.anc.year`.  
+Select _Coverage_.  In the dialog, select the _Vaccines_ tab.  You’ll
+see nationally averaged coverage rates already populated in the table.
+Look at the year in the table corresponding to `r first.anc.year`.
 
-![title](/ocpu/library/MedicMobileImpact/vaccine/images/VaccineTab.png)
+![title](/ocpu/library/MedicMobileImpact/images/VaccineTab.png)
 
 **What is the coverage rate shown for Polio in `r first.anc.year`?**
 
@@ -244,12 +217,12 @@ New Measles Coverage Rate:
 
 *`r sprintf("%.1f",new.measles.coverage.rate*100)`*
 
-Now update the coverage rate for those three vaccines in `r
-first.anc.year`. To do so click the appropriate box and update the
+Now update the coverage rate for those three vaccines in `r first.anc.year`. 
+To do so click the appropriate box and update the
 value. To update DPT you may need to uncheck the _Pentavalent--
 automatically calculate components_ checkbox.
 
-![title](/ocpu/library/MedicMobileImpact/vaccine/images/VaccineTabUpdated.png)
+![title](/ocpu/library/MedicMobileImpact/images/VaccineTabUpdated.png)
 
 Click _Ok_ to save changes and exit the dialog.
 
@@ -258,7 +231,7 @@ Additional deaths prevented in children under five years of age
 relative to impact year_.  In the dialog, select _Table_ and hit _Ok_.
 You should see a table like this.
 
-![title](/ocpu/library/MedicMobileImpact/vaccine/images/ChildrenSaved.png)
+![title](/ocpu/library/MedicMobileImpact/images/ChildrenSaved.png)
 
 Zero or negative numbers mean you haven't prevented any deaths.
 Positive numbers tell you how many lives you've saved per year.  The
