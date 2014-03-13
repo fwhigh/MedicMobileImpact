@@ -20,13 +20,14 @@ You can also run them locally on your machine.  Requires XQuartz for Mac systems
 
 ## For administrators
 
-### Instructions for standing up the server
+### Instructions for standing up the server from your local repository.
 
 In R:
 
     install.packages("opencpu",dependencies=TRUE)
     library(devtools)
-    install_github("MedicMobileImpact","fwhigh")
+    library(opencpu)
+    install.packages("/FULL/PATH/TO/MedicMobileImpact", repos = NULL, type="source")
     opencpu$browse("/library/MedicMobileImpact/anc")
     opencpu$browse("/library/MedicMobileImpact/vaccine")
     
