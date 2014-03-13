@@ -1,7 +1,24 @@
 MedicMobileImpact
 =================
 
-## Instructions on running the worksheet in your browser
+## For worksheet end-users
+
+The worksheets are served at:
+http://54.226.229.69/ocpu/library/MedicMobileImpact/anc/
+http://54.226.229.69/ocpu/library/MedicMobileImpact/vaccine/
+
+You can also run them locally on your machine.  Requires XQuartz for Mac systems prior to Mavericks.  At the R prompt:
+
+    install.packages("opencpu","devtools",dependencies=TRUE) # one time only
+    library(devtools)
+    library(opencpu)
+    install_github("MedicMobileImpact","fwhigh")
+    opencpu$browse("/library/MedicMobileImpact/anc")
+    opencpu$browse("/library/MedicMobileImpact/vaccine")
+
+## For administrators
+
+### Instructions for standing up the server
 
 In R:
 
@@ -11,7 +28,7 @@ In R:
     opencpu$browse("/library/MedicMobileImpact/anc")
     opencpu$browse("/library/MedicMobileImpact/vaccine")
     
-## Instructions on running the worksheet in RStudio
+### Instructions on running the worksheet in R/RStudio
 
  Step 1.  Download this repository.  On the GitHub site, you can download a zipped version of this repo, or if you are a savvy git user, you can clone it to your desktop.
 
