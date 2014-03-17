@@ -34,7 +34,7 @@ iframe {
 </head>
 <body>
 
-<div id="editor">Medic Mobile ANC effectiveness worksheet
+<div id="editor">Medic Mobile ANC Effectiveness Worksheet
 ========================================
 
 # Synopsis
@@ -42,86 +42,116 @@ iframe {
 The purpose of this worksheet is to estimate the effectiveness of ANC
 treatment on a population.
 
-# Instructions
+# Requirements
 
-Every time you see a sentence in boldface, go to the R markdown source
-document and enter the requested value.
+This worksheet requires you to run Spectrum.  Spectrum is a Windows
+program, but you can run it on a Mac. Please see the DataKind How To
+document for instructions.
 
 # Software Versions Tested
 
 * Mac OS X Mavericks
 * Wine 1.6.1, packaged with WineBottler
-* Spectrum 4.632, includes LiST, DemProj and AIM
-* RStudio 0.98 with knitr 1.5
+* Spectrum 4.7, includes LiST, DemProj and AIM
+* RStudio 0.98, R 3.0.1, knitr 1.5, Markdownapp for OpenCPU 1.2.2
 
 # Glossary
 
 ANC:  Antenatal care
+
 CBR:  Crude birth rate
+
+LiST: Lives Saved Tool
+
+# Instructions
+
+This is a [knitr](http://yihui.name/knitr/)
+[markdown](http://daringfireball.net/projects/markdown/) document.
+knitr is an R package that allows you decorate R code with formatted
+text for ease of reading.  knitr allows you to insert R source code
+in-line with the simple text formatting.  R code is enclosed in sets
+of one or three back-quotes.  knitr compiles the document into HTML by
+interpeting the markdown as HTML elements, evaluating the R source
+code and inserting it directly into the HTML.  You are left with a
+readable document that contains dynamically evaluated R code.
+
+For those wishing to complete the worksheet, we have streamlined the
+process using [OpenCPU](https://www.opencpu.org/) and
+[markdownapp](https://github.com/opencpu/markdownapp), which provides
+an editor in your web browser and compiles the markdown dynamically
+into a separate frame.
+
+Note that the worksheet resets to default values when you refresh the
+page.  If you need to save your worksheet in in your browswer, click
+on the compiled markdown document in the right-hand frame in your
+browser, select all (command-a on a Mac), and print (command-p on a
+Mac).
+
+When doing the worksheet, **read this document carefully and in
+order.** You will read descriptive text that provides some context on
+what you are undertaking, and every once in a while you will be asked
+to enter data into this worksheet or copy a derived quantity from this
+worksheet into Spectrum.
 
 # Preparation
 
-**What is the name of the country?**
+What is the name of the country?  
+
+**Enter the value in the markdown document.**
 
 ```{r}
 country.name <- "Nigeria"
 ```
 
-**Provide a recent estimate of the population of `r country.name`.**
+Provide a recent estimate of the population of `r country.name`.  This
+can be any estimate from the last few years.
+
+**Enter the value in the markdown document.**
 
 ```{r}
 country.population <- 168.8e6
 ```
 
-**What is the year of this estimate?  It is okay if the year is
-approximate.**
+What is the year of this estimate?
+
+**Enter the value in the markdown document.**
 
 ```{r}
 country.population.year <- 2012
 ```
 
-**What is the name of the catchment?**
+What is the name of the catchment?
+
+**Enter the value in the markdown document.**
 
 ```{r}
 catchment.name <- "Lagos"
 ```
 
-**What is the population of `r catchment.name`?**
+What is the population of `r catchment.name` around 
+`r country.population.year`?
+
+**Enter the value in the markdown document.**
 
 ```{r}
-catchment.population <- 5.195e6
+catchment.population <- 12e6
 ```
 
-**What is the year of this estimate?  It is okay if it is approximate,
-but it should at least be roughly around 
-`r country.population.year`.**
-
-```{r}
-catchment.population.year <- 2012
+```{r echo=FALSE}
+this.year <- as.POSIXlt(Sys.Date())
+this.year$year <- this.year$year + 1
+first.anc.year <- format(as.Date(this.year),"%Y")
 ```
 
-**What is the first year you will be modeling an increase in ANC
-coverage?  Enter this year or later.**
+How many women will your program serve in `r first.anc.year`?
 
-```{r}
-first.anc.year <- 2014
-```
-
-**How many women will your program serve in `r first.anc.year`?**
+**Enter the value in the markdown document.**
 
 ```{r}
 n.women.covered <- 100000
 ```
 
-You are embarking on an ANC projection for `r catchment.name`, 
-`r country.name`.  The population of `r catchment.name` is 
-`r sprintf("%i",catchment.population)`, which is 
-`r sprintf("%.2f",catchment.population/country.population*100)`% 
-of the population of r country.name`.  Your baseline year for demographic
-projections is `r country.population.year`, and the year you want to
-model an increase in coverage is `r first.anc.year`.
-
-# Initialize Spectrum
+# Do a national projection for `r country.name`
 
 Launch Spectrum.  (If this is your first time, proceed to the next
 step now.  If this is not your first time, make sure all your previous
@@ -132,18 +162,17 @@ Click _New_ or _New projection_.
 
 ![title](/ocpu/library/MedicMobileImpact/images/Spectrum_first_screen.png)
 
+```{r echo=FALSE}
+national.filename <- sprintf("%s ANC.PNJ",country.name)
+```
+
 In the _New_ dialog, under “Set a name...”, set the name for this
-projection.  Make it descriptive of the country, county, and possibly
-intervention.
+projection to 
+**`r national.filename`**.
 
-Under “Set year boundaries...”, enter a first year as the year of the
-country and catchment population estimates from the preparation work
-you did above.  If you don’t know the year of the population estimates
-but they are within the last 5 year, say, just enter 2012.  The
-principle here is to have the start year be at least a full year
-before the start of the intervention.
-
-Set the final year to 10 years after the start year.
+Under “Set year boundaries...”, 
+* **enter `r country.population.year` as the first year**
+* **enter `r first.anc.year` as the final year**.
 
 In the “Activate modules for use in your projection” area, check the
 following three boxes.
@@ -158,91 +187,90 @@ default data”, click _Country data_ and select the country
 corresponding to 1b.  Make sure DemProj, AIM, and LiST are checked
 (they should already be).
 
-Check the box for _Subnational projection_, write `r catchment.name`.
+Hit _Ok_.
 
-Hit _Ok_.  If you then see the following dialog, just hit _Cancel_.
+Click _Modules &rarr; DemProj &rarr; Results &rarr; Population &rarr;
+Total population_.  Accept the defaults by clicking _Ok_ in the dialog.
+You will see a graph of the projected population from 
+`r country.population.year` to
+`r first.anc.year`.  
+
+Click _Home &rarr; Save_.
+
+# Do a subnational projection for `r catchment.name`
+
+In the _Home_ tab, click Click _New_.
+
+```{r echo=FALSE}
+catchment.filename <- sprintf("%s %s ANC.PNJ",country.name,catchment.name)
+```
+
+In the _New_ dialog, under “Set a name...”, set the name for this
+projection to 
+**`r catchment.filename`**.
+
+Under “Set year boundaries...”, 
+* **enter `r country.population.year` as the first year**
+* **enter `r first.anc.year` as the final year**.
+
+In the “Activate modules for use in your projection” area, check the
+following three boxes.
+
+1. _Demographic Projection (DemProj)_
+1. _AIDS (AIM)_
+1. _Lives Saved Tool (LiST)_
+1. _Family Planning (FamPlan)_
+
+In the “Select a country from which to retrieve demographic and other
+default data”, click _Country data_ and select the country
+corresponding to 1b.  Make sure DemProj, AIM, and LiST are checked
+(they should already be).
+
+Now check the box for _Subnational projection_, write `r catchment.name`.
+
+Hit _Ok_.  
 
 ![title](/ocpu/library/MedicMobileImpact/images/New_Spectrum_version_creation_dialog.png)
 
-# Do a demographics projection
+In the dialog that opens ("Subnational projection setup"), click
+_Country projection_, and select the national projection file you
+saved earlier, **`r national.filename`**.
 
-Click on the _Modules_ tab in the main window.
+In the field "Enter the percent of `r country.name`'s population that
+is part of...", find the column for `r country.population.year`.
+**For all years from `r country.population.year` to 
+`r first.anc.year`, enter 
+`r sprintf("%.1f",catchment.population/country.population*100)`**.
 
-Click on the _DemProj_ module.
+Hit _Ok_.  
 
-Click on _Demographic data_.
+# Do a population and birth rate projection
 
-Under the _First year population_ tab, you’ll find the country’s
-demographic data, disaggregated into gender and 5-year age bands.
-Select the entire table by clicking the upper left-most box, then
-Shift-clicking the bottom right-most box.
+Click _Modules &rarr; DemProj &rarr; Results &rarr; Population &rarr;
+Total population_. Accept the defaults by clicking _Ok_ in the dialog.
+You will see a graph of the projected population from 
+`r country.population.year` to
+`r first.anc.year`.  Check that the 
+`r country.name` `r catchment.name`
+population in 
+`r country.population.year`
+is about 
+`r catchment.population`.
 
-Click the _Multiply_ button.  Enter the following number in Spectrum.
-
-*`r sprintf("%.4f",catchment.population/country.population)`*
-
-Click _Ok_.  You will see all the numbers in the population table
-reduced by this fraction.  Double check that the total population is
-now roughly equal to your catchment area as follows.  **What is the
-total male population listed in the table?**
-
-```{r}
-spectrum.catchment.male.population <- 2.547e6
-```
-
-**And what is the total female population?**
-
-```{r}
-spectrum.catchment.female.population <- 2.495e6
-```
-
-```{r echo=FALSE}
-spectrum.catchment.population <- 
-  spectrum.catchment.male.population + spectrum.catchment.female.population
-```
-
-The total population you multiplied down to is 
-`r sprintf("%i",spectrum.catchment.population)`, which is 
-`r sprintf("%.1f",(1-(spectrum.catchment.population)/catchment.population)*100)`%
-different from the catchment population you estimated.  If the
-difference is 10% or smaller, you should be fine.
-
-Click _Ok_ to save your edits and exit the _Demographic data_ dialog.
-
-Click on _Results &rarr; Total Population_.  The defaults in the
-dialog you are presented with should be fine, but check _Table plus
-chart_.  Click _Ok_.  You’ll see a projection of the total population
-for your catchment from the year after your first year to your final
-year.
-
-![title](/ocpu/library/MedicMobileImpact/images/Demographic_Projection.png)
-
-**What, in whole numbers (not in millions), is the total projected
-population size in `r first.anc.year`?**
-
-```{r}
-spectrum.catchment.population.first.anc.year <- 5.09e6
-```
-
-The projection population for your first year of increased ANC
-coverage (`r first.anc.year`) is 
-`r sprintf("%.2f",(spectrum.catchment.population.first.anc.year/catchment.population-1)*100)`%
-bigger than the population in `r catchment.population.year`, which was
-`r sprintf("%i",catchment.population)`.
-
-Click on _Results &rarr; Vital Events &rarr; Crude Birth Rate_.  The
-defaults in the dialog you are presented should be fine, but check
+Click on _Results &rarr; Vital Events &rarr; Crude Birth Rate_.  Check
 _Table plus_ chart.  Click _Ok_.  You’ll see a projection of the crude
 birth rate for your catchment from the year after your first year to
 your final year.
 
 ![title](/ocpu/library/MedicMobileImpact/images/Crude_Birth_Rate_Projection.png)
 
-This is the number of births per 1000 people.  **What is the CBR for
-`r first.anc.year`?**
+This is the number of births per 1000 people.  What is the CBR for
+`r first.anc.year`?
+
+**Enter the value in the markdown document.**
 
 ```{r}
-spectrum.cbr.first.anc.year <- 38.15
+spectrum.cbr.first.anc.year <- 38.77
 ```
 
 ```{r echo=FALSE}
@@ -260,8 +288,10 @@ Make sure you’re in the _Modules_ tab.  Select the _LiST_ module.
 
 Select _Coverage_.  In the dialog, select the _Pregnancy_ tab.  You’ll
 see nationally averaged coverage rates already populated in the table.
-Look at the "Antenatal care" row of the table.  **What is the coverage
-rate shown for `r first.anc.year`?**
+Look at the "Antenatal care" row of the table.  What is the coverage
+rate shown for `r first.anc.year`?
+
+**Enter the value in the markdown document.**
 
 ```{r}
 baseline.anc.coverage.rate <- 44.8
@@ -269,12 +299,13 @@ baseline.anc.coverage.rate <- 44.8
 
 By default, LiST is assuming that 
 `r sprintf("%.f",baseline.anc.coverage.rate/100*n.pregnant.women.first.anc.year)`
-out of `r sprintf("%.f",n.pregnant.women.first.anc.year)` pregant
+out of 
+`r sprintf("%.f",n.pregnant.women.first.anc.year)` pregnant
 women are being treated with antenatal care.  This coverage rate is
-equal to the national coverage rate by default, and we have just
-scaled it down to the catchment size.
+equal to the national coverage rate by default.
 
-In the "Antenatal care" row in the `r first.anc.year` column, enter 
+**enter the following value into Spectrum into the "Antenatal care"
+row in the `r first.anc.year` column in Spectrum.**
 
 ```{r echo=FALSE}
 new.anc.coverage.rate <- 
@@ -292,31 +323,62 @@ $$
 
 imposing the rule that$N\text{ women covered by this program} \leq N\text{ pregnant women}.$
 
-Now click on this cell to select it, then Shift-click on the farthest
-"Antenatal care" cell on the right.  Click _Duplicate_ on the bottom
-to replicate the number you just entered for all subsequent years.
-You should see something like this.
-
-![title](/ocpu/library/MedicMobileImpact/images/ANC_Coverage_Table.png)
-
 Click _Ok_ to save changes and exit the dialog.
+
+# Project lives saved
 
 Now to compute lives saved.  Click _Results &rarr; Neonatal &rarr;
 Additional deaths prevented in children under one month of age_.  In
-the dialog, select _Table_ and hit _Ok_.  You may see a table like
-this.
+the dialog, select _Table_ and hit _Ok_.
 
-![title](/ocpu/library/MedicMobileImpact/images/Neonatal.png)
+In the table you will see an estimate of the number of lives saved for
+`r catchment.name` in `r first.anc.year`.  Zero or negative numbers
+mean the full suite of interventions have not prevented any deaths.
+Positive numbers tell you how many lives you will potentially affect.
 
-Zero or negative numbers mean you have not prevented any deaths.
-Positive numbers tell you how many lives you have saved per year.  You
-can view lives saved estimates by cause of death and by intervention
-type under the other _Results &rarr; Neonatal_ sub-menus.
+You can repeat the lives saved estimates for other population segments.
+* One month old children and younger: _Results &rarr; Neonatal &rarr;
+Additional deaths prevented in children under one month of age
+relative to impact year_.
+* Five year old children and younger: _Results &rarr; Child &rarr;
+Additional deaths prevented in children under five years of age
+relative to impact year_.
+* The mothers: _Results &rarr; Maternal &rarr; Additional maternal
+deaths prevented relative to impact year_.
+* Stillbirths: _Results &rarr; Maternal &rarr; Additional stillbirths
+prevented relative to impact year_.
+
+You can view lives saved estimates by cause of death and /or by
+intervention type under the other _Results &rarr; Neonatal_ sub-menus.
 
 Estimate the number of childrens lives saved by doing a similar
 exercise in the _Results &rarr; Child_ menu, the number of maternal
 lives saved using the _Results &rarr; Maternal_ menu, and number of
 stillbirths prevented in the _Results &rarr; Stillbirth_ menu.
+
+# Evaluate the relative effectiveness of ANC
+
+In the _LiST_ module, click _Effectiveness_ &rarr; Effectiveness of
+interventions (maternal)_. You will see numbers between 0 and 1 in a
+series of tables, or empty tables.  These numbers are "effectiveness",
+which is defined as "the fraction of deaths due to a specific cause
+that are reduced by the intervention".  These numbers tell you how
+many deaths a particular intervention prevented for a particular
+segment (maternal, in this example), divided by the total number of
+deaths in the segment. You can assess which ANC interventions were
+most effective in saving lives, if any, for this particular population
+segment.
+
+As before, you can repeat this exercise for each segment.
+
+* One month old children and younger: _Effectiveness &rarr;
+Effectiveness of interventions (<1 month)_.
+
+* Five year old children and younger: _Effectiveness &rarr;
+Effectiveness of interventions (1-59 months)_.
+
+* Stillbirths: _Effectiveness &rarr;
+Effectiveness of interventions (stillbirths)_.
 </div>
 
 <iframe src="about:blank"></iframe>
