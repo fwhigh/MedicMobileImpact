@@ -22,7 +22,7 @@ To save a record of your work, click on the righthand panel in the web app, sele
 
 ## For administrators
 
-### Instructions for standing up the server from your local repository.
+### Standing up the server from your local repository.
 
 In R:
 
@@ -32,5 +32,14 @@ In R:
     install.packages("/FULL/PATH/TO/MedicMobileImpact", repos = NULL, type="source")
     opencpu$browse("/library/MedicMobileImpact/anc")
     opencpu$browse("/library/MedicMobileImpact/vaccine")
+    
+### Updating the cloud server.
+
+On the server:
+
+    sudo R
+    > library(devtools)
+    > install_github("MedicMobileImpact","fwhigh")
+    sudo service opencpu restart
 
  
