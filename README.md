@@ -5,9 +5,9 @@ MedicMobileImpact
 
 The worksheets are served at:
 
-http://54.226.229.69/ocpu/library/MedicMobileImpact/anc/
+http://54.224.113.38/ocpu/library/MedicMobileImpact/anc/
 
-http://54.226.229.69/ocpu/library/MedicMobileImpact/vaccine/
+http://54.224.113.38/ocpu/library/MedicMobileImpact/vaccine/
 
 You can also run them locally on your machine.  Requires XQuartz for Mac systems prior to Mavericks.  At the R prompt:
 
