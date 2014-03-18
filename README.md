@@ -5,9 +5,9 @@ MedicMobileImpact
 
 The worksheets are served at:
 
-http://54.226.229.69/ocpu/library/MedicMobileImpact/anc/
+http://54.224.113.38/ocpu/library/MedicMobileImpact/anc/
 
-http://54.226.229.69/ocpu/library/MedicMobileImpact/vaccine/
+http://54.224.113.38/ocpu/library/MedicMobileImpact/vaccine/
 
 You can also run them locally on your machine.  Requires XQuartz for Mac systems prior to Mavericks.  At the R prompt:
 
@@ -22,7 +22,7 @@ To save a record of your work, click on the righthand panel in the web app, sele
 
 ## For administrators
 
-### Instructions for standing up the server from your local repository.
+### Standing up the server from your local repository.
 
 In R:
 
@@ -32,5 +32,14 @@ In R:
     install.packages("/FULL/PATH/TO/MedicMobileImpact", repos = NULL, type="source")
     opencpu$browse("/library/MedicMobileImpact/anc")
     opencpu$browse("/library/MedicMobileImpact/vaccine")
+    
+### Updating the cloud server.
+
+On the server:
+
+    sudo R
+    > library(devtools)
+    > install_github("MedicMobileImpact","fwhigh")
+    sudo service opencpu restart
 
  
