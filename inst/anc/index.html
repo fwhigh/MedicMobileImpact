@@ -37,25 +37,25 @@ iframe {
 <div id="editor">Medic Mobile ANC Effectiveness Worksheet
 ========================================
 
-# Synopsis
+## Synopsis
 
 The purpose of this worksheet is to estimate the effectiveness of ANC
 treatment on a population.
 
-# Requirements
+## Requirements
 
 This worksheet requires you to run Spectrum.  Spectrum is a Windows
 program, but you can run it on a Mac. Please see the DataKind How To
 document for instructions.
 
-# Software Versions Tested
+## Software Versions Tested
 
 * Mac OS X Mavericks
 * Wine 1.6.1, packaged with WineBottler
 * Spectrum 4.7, includes LiST, DemProj and AIM
 * RStudio 0.98, R 3.0.1, knitr 1.5, Markdownapp for OpenCPU 1.2.2
 
-# Glossary
+## Glossary
 
 ANC:  Antenatal care
 
@@ -63,7 +63,7 @@ CBR:  Crude birth rate
 
 LiST: Lives Saved Tool
 
-# Instructions
+## Instructions
 
 This is a [knitr](http://yihui.name/knitr/)
 [markdown](http://daringfireball.net/projects/markdown/) document.
@@ -93,7 +93,7 @@ what you are undertaking, and every once in a while you will be asked
 to enter data into this worksheet or copy a derived quantity from this
 worksheet into Spectrum.
 
-# Preparation
+## Preparation
 
 What is the name of the country?  
 
@@ -151,7 +151,7 @@ How many women will your program serve in `r first.anc.year`?
 n.women.covered <- 100000
 ```
 
-# Do a national projection for `r country.name`
+## Do a national projection for `r country.name`
 
 Launch Spectrum.  (If this is your first time, proceed to the next
 step now.  If this is not your first time, make sure all your previous
@@ -180,7 +180,6 @@ following three boxes.
 1. _Demographic Projection (DemProj)_
 1. _AIDS (AIM)_
 1. _Lives Saved Tool (LiST)_
-1. _Family Planning (FamPlan)_
 
 In the “Select a country from which to retrieve demographic and other
 default data”, click _Country data_ and select the country
@@ -197,7 +196,7 @@ You will see a graph of the projected population from
 
 Click _Home &rarr; Save_.
 
-# Do a subnational projection for `r catchment.name`
+## Do a subnational projection for `r catchment.name`
 
 In the _Home_ tab, click Click _New_.
 
@@ -219,12 +218,10 @@ following three boxes.
 1. _Demographic Projection (DemProj)_
 1. _AIDS (AIM)_
 1. _Lives Saved Tool (LiST)_
-1. _Family Planning (FamPlan)_
 
 In the “Select a country from which to retrieve demographic and other
-default data”, click _Country data_ and select the country
-corresponding to 1b.  Make sure DemProj, AIM, and LiST are checked
-(they should already be).
+default data”, click _Country data_ and select 
+`r country.name`.  Make sure DemProj, AIM, and LiST are checked.
 
 Now check the box for _Subnational projection_, write `r catchment.name`.
 
@@ -244,7 +241,7 @@ is part of...", find the column for `r country.population.year`.
 
 Hit _Ok_.  
 
-# Do a population and birth rate projection
+## Do a population and birth rate projection
 
 Click _Modules &rarr; DemProj &rarr; Results &rarr; Population &rarr;
 Total population_. Accept the defaults by clicking _Ok_ in the dialog.
@@ -282,7 +279,7 @@ Given this value, the estimated number of pregnant women in
 `r catchment.name` in `r first.anc.year` is 
 `r sprintf("%.0f",n.pregnant.women.first.anc.year)`.
 
-# Scale up ANC in LiST
+## Scale up ANC in LiST
 
 Make sure you’re in the _Modules_ tab.  Select the _LiST_ module.
 
@@ -325,7 +322,7 @@ imposing the rule that$N\text{ women covered by this program} \leq N\text{ pregn
 
 Click _Ok_ to save changes and exit the dialog.
 
-# Project lives saved
+## Project lives saved
 
 Now to compute lives saved.  Click _Results &rarr; Neonatal &rarr;
 Additional deaths prevented in children under one month of age_.  In
@@ -359,7 +356,7 @@ stillbirths prevented in the _Results &rarr; Stillbirth_ menu.
 Enter the values from Spectrum into the [ANC Impact Google
 Spreadsheet](https://docs.google.com/spreadsheets/d/1bdJjavgBQ9Q5ZU7ODK0jO0VvNO24V2TCifoAj8DEkEc/edit?usp=sharing).
 
-# Explore the relative effectiveness of ANC
+## Explore the relative effectiveness of ANC
 
 In the _LiST_ module, click _Effectiveness_ &rarr; Effectiveness of
 interventions (maternal)_. You will see numbers between 0 and 1 in a

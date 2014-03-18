@@ -36,41 +36,75 @@ iframe {
 
 <div id="editor">
 Medic Mobile Vaccine Effectiveness Worksheet
-========================================
+============================================
 
-# Synopsis
+## Synopsis
 
 The purpose of this worksheet is to estimate the effectiveness of
 childhood vaccination programs on a population.
 
-# Instructions
+## Requirements
 
-Every time you see a sentence in boldface, go to the R markdown source
-document and enter the requested value.
+This worksheet requires you to run Spectrum.  Spectrum is a Windows
+program, but you can run it on a Mac. Please see the DataKind How To
+document for instructions.
 
-# Software Versions Tested
+## Software Versions Tested
 
 * Mac OS X Mavericks
 * Wine 1.6.1, packaged with WineBottler
 * Spectrum 4.7, includes LiST, DemProj and AIM
 * RStudio 0.98 with knitr 1.5
 
-# Preparation
+## Instructions
 
-**What is the name of the country?**
+This is a [knitr](http://yihui.name/knitr/)
+[markdown](http://daringfireball.net/projects/markdown/) document.
+knitr is an R package that allows you decorate R code with formatted
+text for ease of reading.  knitr allows you to insert R source code
+in-line with the simple text formatting.  R code is enclosed in sets
+of one or three back-quotes.  knitr compiles the document into HTML by
+interpeting the markdown as HTML elements, evaluating the R source
+code and inserting it directly into the HTML.  You are left with a
+readable document that contains dynamically evaluated R code.
+
+For those wishing to complete the worksheet, we have streamlined the
+process using [OpenCPU](https://www.opencpu.org/) and
+[markdownapp](https://github.com/opencpu/markdownapp), which provides
+an editor in your web browser and compiles the markdown dynamically
+into a separate frame.
+
+Note that the worksheet resets to default values when you refresh the
+page.  If you need to save your worksheet in in your browswer, click
+on the compiled markdown document in the right-hand frame in your
+browser, select all (command-a on a Mac), and print (command-p on a
+Mac).
+
+When doing the worksheet, **read this document carefully and in
+order.** You will read descriptive text that provides some context on
+what you are undertaking, and every once in a while you will be asked
+to enter data into this worksheet or copy a derived quantity from this
+worksheet into Spectrum.
+
+## Preparation
+
+What is the name of the country?
+
+**Enter the value in the markdown document.**
 
 ```{r}
 country.name <- "Kenya"
 ```
 
-**What is the first year you will be modeling an increase in vaccine
-coverage?  Must be the current year or later.**
-
-```{r}
-first.anc.year <- 2015
+```{r echo=FALSE}
+this.year <- as.POSIXlt(Sys.Date())
+this.year$year <- this.year$year + 1
+first.anc.year <- format(as.Date(this.year),"%Y")
 ```
 
-**How many children will the program serve in `r first.anc.year`?**
+How many children will the program serve in `r first.anc.year`?
+
+**Enter the value in the markdown document.**
 
 ```{r}
 n.child.covered <- 5000
@@ -79,7 +113,7 @@ n.child.covered <- 5000
 You are embarking on vaccine projection for `r country.name`. The year
 you want to model an increase in coverage is `r first.anc.year`.
 
-# Initialize Spectrum
+## Initialize Spectrum
 
 Launch Spectrum.  (If this is your first time, proceed to the next
 step now.  If this is not your first time, make sure all your previous
@@ -107,13 +141,12 @@ following three boxes.
 1. _Lives Saved Tool (LiST)_
 
 In the “Select a country from which to retrieve demographic and other
-default data”, click _Country data_ and select the country
-corresponding to 1b.  Make sure DemProj, AIM, and LiST are checked
-(they should already be).
+default data”, click _Country data_ and select 
+`r country.name`.  Make sure DemProj, AIM, and LiST are checked.
 
 Click _Ok_. 
 
-# Determine Children in Country
+## Determine Children in Country
 
 Click on the _Modules_ tab in the main window.
 
@@ -137,7 +170,9 @@ used.
 
 ![title](/ocpu/library/MedicMobileImpact/images/PopByAgeAndSex.png)
 
-**What is the number in the upper left box (`r first.anc.year` Total 0-4`)?**
+What is the number in the upper left box (`r first.anc.year` Total 0-4`)?
+
+**Enter the value in the markdown document.**
 
 ```{r}
 n.child.zero_to_four <- 7334114
@@ -157,7 +192,7 @@ Children 0-1:
 
 *`r n.child.infant`*
 
-# Scale up Vaccines in LiST
+## Scale up Vaccines in LiST
 
 Make sure you’re in the _Modules_ tab.  Select the _LiST_ module.
 
@@ -167,25 +202,35 @@ Look at the year in the table corresponding to `r first.anc.year`.
 
 ![title](/ocpu/library/MedicMobileImpact/images/VaccineTab.png)
 
-**What is the coverage rate shown for Polio in `r first.anc.year`?**
+What is the coverage rate shown for Polio in `r first.anc.year`?
+
+**Enter the value in the markdown document.**
 
 ```{r}
 baseline.polio.coverage.rate <- 88.0
 ```
 
-**What is the coverage rate shown for DTP in `r first.anc.year`?**
+What is the coverage rate shown for DPT in `r first.anc.year`?
+
+**Enter the value in the markdown document.**
 
 ```{r}
-baseline.dtp.coverage.rate <- 0.0
+baseline.dpt.coverage.rate <- 0.0
 ```
 
-**What is the coverage rate shown for Measles in `r first.anc.year`?**
+What is the coverage rate shown for Measles in `r first.anc.year`?
+
+**Enter the value in the markdown document.**
 
 ```{r}
 baseline.measles.coverage.rate <- 93.0
 ```
 
-In order to compute the new vaccine rates after the intervention, we'll assume that all children in the country not affected by the intervention are subject to the national average rate, and that all children in the intervention have a 100% coverage rate for a given vaccine.
+In order to compute the new vaccine rates after the intervention, we
+will assume that all children in the country not affected by the
+intervention are subject to the national average rate, and that all
+children in the intervention have a 100% coverage rate for a given
+vaccine.
 
 To compute this we use the formula
 
@@ -198,7 +243,7 @@ new.polio.coverage.rate <- min(1,(baseline.polio.coverage.rate/100*(n.child.infa
 ```
 
 ```{r echo=FALSE}
-new.dtp.coverage.rate <- min(1,(baseline.dtp.coverage.rate/100*(n.child.infant-min(0,n.child.covered )) + n.child.covered )/n.child.infant)
+new.dpt.coverage.rate <- min(1,(baseline.dpt.coverage.rate/100*(n.child.infant-min(0,n.child.covered )) + n.child.covered )/n.child.infant)
 ```
 
 ```{r echo=FALSE}
@@ -209,9 +254,9 @@ New Polio Coverage Rate:
 
 *`r sprintf("%.1f",new.polio.coverage.rate*100)`*
 
-New DTP Coverage Rate:
+New DPT Coverage Rate:
 
-*`r sprintf("%.1f",new.dtp.coverage.rate*100)`*
+*`r sprintf("%.1f",new.dpt.coverage.rate*100)`*
 
 New Measles Coverage Rate:
 
@@ -227,15 +272,26 @@ automatically calculate components_ checkbox.
 Click _Ok_ to save changes and exit the dialog.
 
 Now to compute lives saved.  Click _Results &rarr; Child &rarr;
-Additional deaths prevented in children under five years of age
-relative to impact year_.  In the dialog, select _Table_ and hit _Ok_.
-You should see a table like this.
+Additional deaths prevented in children under five years of age by
+intervention relative to impact year_.  In the dialog, select _Table_
+and hit _Ok_.  You should see a table like this.
 
-![title](/ocpu/library/MedicMobileImpact/images/ChildrenSaved.png)
+![title](/ocpu/library/MedicMobileImpact/images/VaccineLivesSavedByIntervention.png)
 
-Zero or negative numbers mean you haven't prevented any deaths.
-Positive numbers tell you how many lives you've saved per year.  The
-totals across all age groups appear in the first line of the table.
+Add the results under the _Vaccine_ subheading together to estimate
+lives saved from the vaccine coverage increase.
+
+Enter the values from Spectrum into the [Vaccine Impact Google
+Spreadsheet](https://docs.google.com/spreadsheets/d/1GmnXEAV0ol38_gj90GpHLsryquQOkrt1_D6JKqI1gIM/edit?usp=sharing)
+
+Zero or negative numbers mean you have not prevented any deaths.
+Positive numbers tell you how many lives you have saved per year.
+
+## Explore the relative effectiveness of vaccines
+
+You can explore the relative effectiveness of interventions using
+LiST's _Interventions_ tool.  See the ANC worksheet for a brief
+discussion.
 </div>
 
 <iframe src="about:blank"></iframe>
