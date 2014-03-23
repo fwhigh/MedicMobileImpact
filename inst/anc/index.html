@@ -120,7 +120,9 @@ What is the year of this estimate?
 country.population.year <- 2012
 ```
 
-What is the name of the catchment?
+What is the name of the catchment?  _If you do not want to scale down
+the population to a subnation catchment area, then just enter the
+country name again._
 
 **Enter the value in the markdown document.**
 
@@ -129,7 +131,9 @@ catchment.name <- "Lagos"
 ```
 
 What is the population of `r catchment.name` around 
-`r country.population.year`?
+`r country.population.year`?  _If you do not want to scale down the
+population to a subnation catchment area, then just enter the
+country's population again._
 
 **Enter the value in the markdown document.**
 
@@ -137,10 +141,11 @@ What is the population of `r catchment.name` around
 catchment.population <- 12e6
 ```
 
-```{r echo=FALSE}
-this.year <- as.POSIXlt(Sys.Date())
-this.year$year <- this.year$year + 1
-first.anc.year <- format(as.Date(this.year),"%Y")
+What year would you like to do a projection for?  This must be next
+year or beyond; it cannot be this year.
+
+```{r}
+first.anc.year <- 2015
 ```
 
 How many women will your program serve in `r first.anc.year`?
@@ -172,7 +177,7 @@ projection to
 
 Under “Set year boundaries...”, 
 * **enter `r country.population.year` as the first year**
-* **enter `r first.anc.year` as the final year**.
+* **enter `r first.anc.year` or any year afterward as the final year**.
 
 In the “Activate modules for use in your projection” area, check the
 following three boxes.
@@ -191,12 +196,14 @@ Hit _Ok_.
 Click _Modules &rarr; DemProj &rarr; Results &rarr; Population &rarr;
 Total population_.  Accept the defaults by clicking _Ok_ in the dialog.
 You will see a graph of the projected population from 
-`r country.population.year` to
-`r first.anc.year`.  
+`r country.population.year` to your final projection year.  
 
 Click _Home &rarr; Save_.
 
-## Do a subnational projection for `r catchment.name`
+## OPTIONAL: Do a subnational projection for `r catchment.name`
+
+_If you are not doing an ANC projection for a subnational catchment,
+then skip this section._
 
 In the _Home_ tab, click Click _New_.
 
@@ -210,7 +217,7 @@ projection to
 
 Under “Set year boundaries...”, 
 * **enter `r country.population.year` as the first year**
-* **enter `r first.anc.year` as the final year**.
+* **enter the final year you entered above for the national projection**.
 
 In the “Activate modules for use in your projection” area, check the
 following three boxes.
@@ -236,7 +243,7 @@ saved earlier, **`r national.filename`**.
 In the field "Enter the percent of `r country.name`'s population that
 is part of...", find the column for `r country.population.year`.
 **For all years from `r country.population.year` to 
-`r first.anc.year`, enter 
+the final projection year, enter 
 `r sprintf("%.1f",catchment.population/country.population*100)`**.
 
 Hit _Ok_.  
@@ -246,8 +253,7 @@ Hit _Ok_.
 Click _Modules &rarr; DemProj &rarr; Results &rarr; Population &rarr;
 Total population_. Accept the defaults by clicking _Ok_ in the dialog.
 You will see a graph of the projected population from 
-`r country.population.year` to
-`r first.anc.year`.  Check that the 
+`r country.population.year` to the final projection year.  Check that the 
 `r country.name` `r catchment.name`
 population in 
 `r country.population.year`
@@ -301,8 +307,8 @@ out of
 women are being treated with antenatal care.  This coverage rate is
 equal to the national coverage rate by default.
 
-**enter the following value into Spectrum into the "Antenatal care"
-row in the `r first.anc.year` column in Spectrum.**
+**Enter the following value into Spectrum into the "Antenatal care"
+row in all columns from `r first.anc.year` and beyond in Spectrum.**
 
 ```{r echo=FALSE}
 new.anc.coverage.rate <- 
@@ -325,35 +331,35 @@ Click _Ok_ to save changes and exit the dialog.
 ## Project lives saved
 
 Now to compute lives saved.  Click _Results &rarr; Neonatal &rarr;
-Additional deaths prevented in children under one month of age_.  In
-the dialog, select _Table_ and hit _Ok_.
+Additional deaths prevented in children under one month of age by
+intervention relative to impact year_.  In the dialog, select _Table_
+and hit _Ok_.
 
 In the table you will see an estimate of the number of lives saved for
-`r catchment.name` in `r first.anc.year`.  Zero or negative numbers
-mean the full suite of interventions have not prevented any deaths.
-Positive numbers tell you how many lives you will potentially affect.
+`r catchment.name` in `r first.anc.year`, disaggregated by
+intervention.  Zero or negative numbers mean the full suite of
+interventions have not prevented any deaths.  Positive numbers tell
+you how many lives you will potentially affect.  Focus only on those
+interventions that fall under ANC, and record those numbers into the
+[ANC Impact Google
+Spreadsheet](https://docs.google.com/spreadsheets/d/1bdJjavgBQ9Q5ZU7ODK0jO0VvNO24V2TCifoAj8DEkEc/edit?usp=sharing).
 
 You can repeat the lives saved estimates for other population segments.
-* One month old children and younger: _Results &rarr; Neonatal &rarr;
-Additional deaths prevented in children under one month of age
-relative to impact year_.
-* Five year old children and younger: _Results &rarr; Child &rarr;
-Additional deaths prevented in children under five years of age
-relative to impact year_.
-* The mothers: _Results &rarr; Maternal &rarr; Additional maternal
-deaths prevented relative to impact year_.
+
+* Mothers: _Results &rarr; Maternal &rarr; Additional maternal deaths
+by intervention prevented relative to impact year_.
+
 * Stillbirths: _Results &rarr; Maternal &rarr; Additional stillbirths
 prevented relative to impact year_.
 
-You can view lives saved estimates by cause of death and /or by
-intervention type under the other _Results &rarr; Neonatal_ sub-menus.
+You could also do a projection for "five year old children and
+younger": _Results &rarr; Child &rarr; Additional deaths prevented in
+children under five years of age by intervention relative to impact
+year_.  But this population segment is less relevant to ANC treatment
+efficacy studies than the other segments in LiST.
 
-Estimate the number of childrens lives saved by doing a similar
-exercise in the _Results &rarr; Child_ menu, the number of maternal
-lives saved using the _Results &rarr; Maternal_ menu, and number of
-stillbirths prevented in the _Results &rarr; Stillbirth_ menu.
-
-Enter the values from Spectrum into the [ANC Impact Google
+Enter the number of lives saved by your ANC increases from Spectrum
+into the [ANC Impact Google
 Spreadsheet](https://docs.google.com/spreadsheets/d/1bdJjavgBQ9Q5ZU7ODK0jO0VvNO24V2TCifoAj8DEkEc/edit?usp=sharing).
 
 ## Explore the relative effectiveness of ANC
@@ -376,11 +382,11 @@ As before, you can repeat this exercise for each segment.
 * One month old children and younger: _Effectiveness &rarr;
 Effectiveness of interventions (<1 month)_.
 
-* Five year old children and younger: _Effectiveness &rarr;
-Effectiveness of interventions (1-59 months)_.
-
 * Stillbirths: _Effectiveness &rarr;
 Effectiveness of interventions (stillbirths)_.
+
+Again, looking at effectiveness for 1-59 month children is optional.
+
 </div>
 
 <iframe src="about:blank"></iframe>
