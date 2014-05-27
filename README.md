@@ -5,9 +5,9 @@ MedicMobileImpact
 
 The worksheets are served at:
 
-http://bit.ly/ANCImpact
+http://bit.ly/ANCImpact_v2
 
-http://bit.ly/VaccineImpact
+http://bit.ly/VaccineImpact_v2
 
 You can also run them locally on your machine.  Requires XQuartz for Mac systems prior to Mavericks.  At the R prompt:
 
